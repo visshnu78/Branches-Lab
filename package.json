@@ -11,7 +11,8 @@
     "dev": "nodemon server/server.js",
     "prisma:generate": "prisma generate --schema=server/prisma/schema.prisma",
     "prisma:push": "prisma db push --schema=server/prisma/schema.prisma",
-    "seed": "node server/prisma/seed.js"
+    "seed": "node server/prisma/seed.js",
+    "postinstall": "prisma generate --schema=server/prisma/schema.prisma"
   },
   "dependencies": {
     "@prisma/client": "^5.19.1",
