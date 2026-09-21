@@ -33,12 +33,14 @@ document.addEventListener('DOMContentLoaded', () => {
   window.openInquiryModal = openModal;
   window.closeInquiryModal = closeModal;
 
-  // Trigger buttons: navbar CTA, hero CTA, footer CTA
-  document.querySelectorAll('.open-inquiry-modal, a[href="#contact"]').forEach((btn) => {
-    btn.addEventListener('click', (e) => {
+  // Event delegation: navbar CTA, hero CTA, footer CTA, and service cards
+  document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('.open-inquiry-modal, .open-inquiry-btn, a[href="#contact"]');
+    if (trigger) {
       e.preventDefault();
-      openModal();
-    });
+      const service = trigger.getAttribute('data-service') || '';
+      openModal(service);
+    }
   });
 
   if (closeBtn) closeBtn.addEventListener('click', closeModal);
@@ -48,6 +50,13 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.target === modalOverlay) closeModal();
     });
   }
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modalOverlay && modalOverlay.classList.contains('active')) {
+      closeModal();
+    }
+  });
 
   // Toast helper
   function showToast(title, message, type = 'success') {
