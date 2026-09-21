@@ -76,8 +76,12 @@ app.get('*', (req, res) => {
 // Centralized Error Handler
 app.use(errorHandler);
 
-// Start Server
-app.listen(PORT, () => {
-  console.log(`🚀 Branches Lab server is running on http://localhost:${PORT}`);
-  console.log(`📡 Health check available at http://localhost:${PORT}/api/health`);
-});
+// Start Server locally if not running on Vercel
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`🚀 Branches Lab server is running on http://localhost:${PORT}`);
+    console.log(`📡 Health check available at http://localhost:${PORT}/api/health`);
+  });
+}
+
+module.exports = app;
