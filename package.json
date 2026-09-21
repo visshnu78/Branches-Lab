@@ -1,0 +1,28 @@
+{
+  "name": "branches-lab",
+  "version": "1.0.0",
+  "description": "Branches Lab - Full-stack Innovation Hub Website",
+  "main": "server/server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "nodemon server/server.js",
+    "prisma:generate": "prisma generate --schema=server/prisma/schema.prisma",
+    "prisma:push": "prisma db push --schema=server/prisma/schema.prisma",
+    "seed": "node server/prisma/seed.js"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.19.1",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.4.0",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4",
+    "prisma": "^5.19.1"
+  }
+}

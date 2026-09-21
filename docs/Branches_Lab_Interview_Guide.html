@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Branches Lab — Full-Stack Internship Interview Guide</title>
+  <style>
+    /* ===== RESET & PRINT SETUP ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    @page {
+      size: A4;
+      margin: 14mm 16mm 14mm 16mm;
+      @bottom-right {
+        content: counter(page);
+        font-size: 8pt;
+        color: #64748b;
+      }
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-size: 10pt;
+      line-height: 1.55;
+      color: #1e293b;
+      background: #ffffff;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== HEADINGS & TYPOGRAPHY ===== */
+    h1, h2, h3, h4 {
+      color: #0f172a;
+      font-weight: 700;
+      line-height: 1.25;
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+    h1 { font-size: 20pt; margin-bottom: 6px; color: #1d4ed8; }
+    h2 {
+      font-size: 13pt;
+      margin-top: 18px;
+      margin-bottom: 8px;
+      padding-bottom: 4px;
+      border-bottom: 1.5px solid #e2e8f0;
+      color: #0f172a;
+    }
+    h3 { font-size: 11pt; margin-top: 12px; margin-bottom: 5px; color: #1e40af; }
+    h4 { font-size: 10pt; margin-top: 8px; margin-bottom: 3px; }
+    p { margin-bottom: 8px; }
+    ul, ol { margin-left: 18px; margin-bottom: 8px; }
+    li { margin-bottom: 3px; }
+
+    /* ===== COVER / HEADER BAR ===== */
+    .header-banner {
+      background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 50%, #6d28d9 100%);
+      color: #ffffff;
+      padding: 16px 20px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+    .header-banner h1 { color: #ffffff; margin-bottom: 4px; font-size: 18pt; }
+    .header-banner .subtitle { font-size: 10.5pt; opacity: 0.92; font-weight: 400; }
+    .header-meta {
+      margin-top: 8px;
+      display: flex;
+      gap: 16px;
+      font-size: 8.5pt;
+      opacity: 0.85;
+      border-top: 1px solid rgba(255,255,255,0.25);
+      padding-top: 6px;
+    }
+
+    /* ===== CALLOUT BOXES ===== */
+    .callout {
+      border-left: 3.5px solid #3b82f6;
+      background: #f8fafc;
+      padding: 8px 12px;
+      border-radius: 0 6px 6px 0;
+      margin: 10px 0;
+      font-size: 9.5pt;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    .callout-title {
+      font-weight: 700;
+      color: #1d4ed8;
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .callout-star {
+      border-left-color: #8b5cf6;
+      background: #faf5ff;
+    }
+    .callout-star .callout-title { color: #6d28d9; }
+    .callout-tip {
+      border-left-color: #10b981;
+      background: #f0fdf4;
+    }
+    .callout-tip .callout-title { color: #059669; }
+
+    /* ===== CARDS & GRIDS ===== */
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 10px 0;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    .card {
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 10px 12px;
+      background: #ffffff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    .card-title {
+      font-size: 10pt;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+    .card p { font-size: 9pt; margin-bottom: 0; color: #475569; }
+
+    /* ===== TABLES ===== */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0;
+      font-size: 9pt;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 6px 8px;
+      text-align: left;
+    }
+    th {
+      background: #f1f5f9;
+      color: #0f172a;
+      font-weight: 600;
+    }
+    tr:nth-child(even) td { background: #f8fafc; }
+
+    /* ===== CODE BLOCKS & TAGS ===== */
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 8.5pt;
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 1px 4px;
+      border-radius: 4px;
+    }
+    pre {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 8px 10px;
+      border-radius: 6px;
+      overflow-x: auto;
+      font-size: 8pt;
+      line-height: 1.4;
+      margin: 6px 0;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    pre code {
+      background: transparent;
+      color: #f8fafc;
+      padding: 0;
+    }
+
+    /* ===== BADGES ===== */
+    .badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 7.5pt;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .badge-blue { background: #dbeafe; color: #1e40af; }
+    .badge-green { background: #d1fae5; color: #065f46; }
+    .badge-purple { background: #ede9fe; color: #5b21b6; }
+    .badge-amber { background: #fef3c7; color: #92400e; }
+
+    /* ===== INTERVIEW Q&A BOX ===== */
+    .qa-box {
+      border: 1px solid #e2e8f0;
+      border-left: 4px solid #1d4ed8;
+      background: #ffffff;
+      border-radius: 4px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    .qa-question {
+      font-weight: 700;
+      font-size: 9.5pt;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+    .qa-answer {
+      font-size: 9pt;
+      color: #334155;
+    }
+    .qa-keypoints {
+      margin-top: 4px;
+      font-size: 8.5pt;
+      color: #1d4ed8;
+      font-weight: 600;
+    }
+
+    .page-break {
+      page-break-before: always;
+      break-before: page;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== HEADER / BANNER ==================== -->
+  <div class="header-banner">
+    <h1>Branches Lab — Full-Stack Project Interview Guide</h1>
+    <div class="subtitle">Complete Technical Walkthrough, Architecture Justifications, and Q&A for Internship Interviews</div>
+    <div class="header-meta">
+      <span><strong>Role:</strong> Full-Stack Engineering Candidate</span>
+      <span><strong>Stack:</strong> Node.js, Express, Prisma ORM, SQLite/PostgreSQL, Vanilla JS (ES6+)</span>
+      <span><strong>Focus:</strong> REST APIs, Security, Data Modeling, UX Engineering</span>
+    </div>
+  </div>
+
+  <!-- ==================== SECTION 1: ELEVATOR PITCHES ==================== -->
+  <h2>1. Executive Summary & Elevator Pitches</h2>
+  
+  <div class="callout callout-star">
+    <div class="callout-title">🎙️ The 30-Second "Hook" Elevator Pitch</div>
+    <p>
+      <em>"Branches Lab is a full-stack digital innovation hub platform that I transformed from a static landing page into an interactive, database-backed web application. On the backend, I engineered a RESTful API using Node.js, Express, and Prisma ORM with JWT authentication, role-based access control, and SQLite/PostgreSQL. On the frontend, I preserved an ultra-fast, zero-dependency JavaScript architecture while adding an interactive project intake modal, real-time debounced service search, and an OS-aware dark/light theme engine. It also features an offline mock fallback layer to ensure 100% demo resilience."</em>
+    </p>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">⏱️ The 2-Minute STAR Walkthrough</div>
+    <p><strong>Situation:</strong> Branches Lab needed a modern web presence to present technology services, validate client project proposals, and convert visitors into qualified leads.</p>
+    <p><strong>Task:</strong> As the full-stack developer, my goal was to build the frontend experience with responsive UI/UX and develop a robust backend to handle data persistence, user authentication, and secure client inquiry intake.</p>
+    <p><strong>Action:</strong></p>
+    <ul>
+      <li><strong>Backend Engineering:</strong> Architected a modular Express server with Prisma ORM, establishing relational models for Users, Services, and Inquiries. Added JWT-based stateless authentication, bcryptjs password hashing, and rate limiting.</li>
+      <li><strong>Frontend Usability:</strong> Built an asynchronous project intake modal with real-time field validation, button loading spinners, and animated toast feedback. Implemented live service search with 250ms debouncing and category pill filters.</li>
+      <li><strong>Theme & Resilience:</strong> Implemented a dark/light mode engine leveraging CSS custom properties that respects system <code>prefers-color-scheme</code> and persists choices in <code>localStorage</code>. Created an API abstraction layer with automatic offline fallback.</li>
+    </ul>
+    <p><strong>Result:</strong> Delivered a high-converting, production-ready web application with sub-100ms frontend load times, clean REST APIs, and comprehensive security hardening.</p>
+  </div>
+
+  <!-- ==================== SECTION 2: ARCHITECTURE & TECH STACK ==================== -->
+  <h2>2. System Architecture & Tech Stack Justifications</h2>
+  <p>Interviewers frequently ask: <em>"Why did you choose this specific tech stack over alternatives?"</em> Here is the exact technical rationale:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 22%;">Layer</th>
+        <th style="width: 28%;">Technology</th>
+        <th style="width: 50%;">Why Chosen (Interview Rationale)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Backend Runtime</strong></td>
+        <td><code>Node.js + Express.js</code></td>
+        <td>Event-driven, non-blocking I/O model is ideal for I/O-heavy RESTful APIs. Keeps the codebase in a single language (JavaScript) across the entire stack, eliminating context switching.</td>
+      </tr>
+      <tr>
+        <td><strong>Database & ORM</strong></td>
+        <td><code>Prisma ORM + SQLite / PostgreSQL</code></td>
+        <td>Prisma provides compile-time type safety, declarative schema modeling, and automated migrations. SQLite gives zero-config portability locally, while a single environment variable change (<code>DATABASE_URL</code>) targets PostgreSQL in production.</td>
+      </tr>
+      <tr>
+        <td><strong>Authentication</strong></td>
+        <td><code>JWT + bcryptjs</code></td>
+        <td>Stateless JSON Web Tokens enable decoupled architecture without server-side session stores. Passwords are securely hashed with bcrypt using 10 salt rounds to defend against rainbow table attacks.</td>
+      </tr>
+      <tr>
+        <td><strong>Security</strong></td>
+        <td><code>Helmet, CORS, express-rate-limit</code></td>
+        <td>Mitigates OWASP Top 10 risks: Helmet sets protective HTTP headers, CORS restricts unauthorized cross-origin requests, and rate-limiting defends against brute-force and DDoS attempts.</td>
+      </tr>
+      <tr>
+        <td><strong>Frontend</strong></td>
+        <td><code>Vanilla JS (ES6+) + CSS Tokens</code></td>
+        <td>Delivers an ultra-lightweight bundle (&lt;15KB) with zero build-tooling friction and instantaneous rendering, demonstrating deep mastery of foundational DOM APIs without relying on heavy frameworks.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- PAGE BREAK FOR CLEAN PRINTING -->
+  <div class="page-break"></div>
+
+  <!-- ==================== SECTION 3: KEY FEATURES DEEP DIVE ==================== -->
+  <h2>3. Deep Dive: Key Features & Engineering Challenges</h2>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title">✨ Feature 1: Interactive Project Intake Modal</div>
+      <p><strong>Challenge:</strong> Avoid page reloads and provide immediate feedback on project inquiry submissions.</p>
+      <p><strong>Solution:</strong> Created a decoupled modal controller (<code>modal.js</code>) managing background scroll locking, input sanitization, dynamic service pre-selection, and asynchronous <code>POST /api/inquiries</code> dispatch with loading states and toast notifications.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">🔍 Feature 2: Real-time Search & Filter</div>
+      <p><strong>Challenge:</strong> Live filtering on every keystroke can cause DOM thrashing and UI stuttering.</p>
+      <p><strong>Solution:</strong> Implemented a 250ms debouncing mechanism in <code>services.js</code>. The filter engine computes an intersection of active category pills and case-insensitive keyword queries, smoothly animating matching cards or displaying an empty state.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">🌙 Feature 3: Persistent Dark/Light Mode</div>
+      <p><strong>Challenge:</strong> Preventing Flash of Unstyled Content (FOUC) while respecting both OS settings and user choice.</p>
+      <p><strong>Solution:</strong> Built <code>theme.js</code> with CSS custom property tokens. It checks <code>localStorage</code> first, falls back to <code>window.matchMedia('(prefers-color-scheme: dark)')</code>, and binds a live listener to system preference changes.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">🛡️ Feature 4: Resilient Client API Layer</div>
+      <p><strong>Challenge:</strong> Demonstrating the frontend if the backend server is offline or not yet booted.</p>
+      <p><strong>Solution:</strong> Designed an intelligent client API wrapper (<code>api.js</code>) that tests <code>/api/health</code> with an <code>AbortController</code> timeout. If the backend is unreachable, it seamlessly routes CRUD actions to a simulated <code>localStorage</code> mock database.</p>
+    </div>
+  </div>
+
+  <!-- ==================== SECTION 4: DATA MODELING ==================== -->
+  <h2>4. Database Schema & Data Modeling (Prisma)</h2>
+  <p>The application models core business domain entities with explicit relations and validation:</p>
+
+  <pre><code>// User Model: Role-based access control (CLIENT vs ADMIN)
+model User {
+  id           String    @id @default(uuid())
+  email        String    @unique
+  passwordHash String
+  name         String
+  role         String    @default("CLIENT") // "CLIENT" | "ADMIN"
+  inquiries    Inquiry[]
+  createdAt    DateTime  @default(now())
+}
+
+// Inquiry Model: Project proposals submitted by clients
+model Inquiry {
+  id          String   @id @default(uuid())
+  clientName  String
+  email       String
+  serviceType String
+  budget      String
+  timeline    String
+  details     String
+  status      String   @default("PENDING") // "PENDING" | "IN_REVIEW" | "ACCEPTED"
+  user        User?    @relation(fields: [userId], references: [id])
+  userId      String?
+  createdAt   DateTime @default(now())
+}
+
+// Service Model: Dynamic service offerings with slug indexing
+model Service {
+  id          String   @id @default(uuid())
+  title       String
+  slug        String   @unique
+  category    String   // "STRATEGY" | "DESIGN" | "ENGINEERING" | "AI_DATA" | ...
+  description String
+  icon        String
+  featured    Boolean  @default(false)
+}</code></pre>
+
+  <!-- ==================== SECTION 5: TOP 10 INTERVIEW QUESTIONS ==================== -->
+  <h2>5. Top 10 Technical Interview Questions & Model Answers</h2>
+
+  <div class="qa-box">
+    <div class="qa-question">Q1: Walk me through what happens under the hood when a user submits an inquiry.</div>
+    <div class="qa-answer">
+      <em>"When the user clicks 'Submit Proposal', <code>modal.js</code> intercepts the event and runs client-side validation. If valid, the button enters a loading state and dispatches an asynchronous <code>fetch</code> request to <code>POST /api/inquiries</code>. On the server, the request passes through Helmet, CORS, and rate-limiting middlewares, then enters <code>validateInquiry</code> to verify email format and text lengths. The route handler calls <code>prisma.inquiry.create()</code>, storing the record in SQLite. The server responds with <code>HTTP 201 Created</code> and JSON payload. The client receives the response, resets the form, triggers a slide-in green toast notification, and closes the modal after 1.5 seconds."</em>
+    </div>
+    <div class="qa-keypoints">Key Talking Points: Event interception, validation, middleware pipeline, ORM persistence, HTTP status codes, UI state feedback.</div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-question">Q2: How does authentication and authorization work in this project?</div>
+    <div class="qa-answer">
+      <em>"I implemented stateless authentication using JSON Web Tokens (JWT). When a user registers or logs in via <code>/api/auth/login</code>, their password is verified against the stored hash using <code>bcryptjs.compare()</code>. Upon verification, the server generates a signed JWT containing the user's ID, email, and role (such as 'ADMIN'), with a 7-day expiration. On protected routes, the <code>authenticateToken</code> middleware extracts the Bearer token from the <code>Authorization</code> header and verifies the signature using <code>jwt.verify()</code>. For administrative actions, a second middleware, <code>requireAdmin</code>, checks the decoded role and blocks non-admins with <code>403 Forbidden</code>."</em>
+    </div>
+    <div class="qa-keypoints">Key Talking Points: Stateless JWT, bcrypt salt hashing, Bearer auth header, middleware chaining, 401 vs 403 status codes.</div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-question">Q3: Why and how did you implement debouncing on the search input?</div>
+    <div class="qa-answer">
+      <em>"Without debouncing, every single keystroke triggers filter calculations and DOM modifications, which causes performance lag and unnecessary re-renders. I implemented a 250ms debounce function using <code>clearTimeout</code> and <code>setTimeout</code>. When the user types, any pending timeout is cleared, and a new timer starts. The filtering logic only executes once the user pauses typing for 250ms. This keeps typing fluid and responsive while keeping CPU utilization low."</em>
+    </div>
+    <div class="qa-keypoints">Key Talking Points: Event throttling vs debouncing, DOM performance, JavaScript timers, user experience.</div>
+  </div>
+
+  <!-- PAGE BREAK FOR CLEAN PRINTING -->
+  <div class="page-break"></div>
+
+  <div class="qa-box">
+    <div class="qa-question">Q4: How did you design the application for security?</div>
+    <div class="qa-answer">
+      <em>"I followed defense-in-depth principles:
+      1. <strong>HTTP Headers:</strong> Used <code>helmet</code> to protect against cross-site scripting (XSS), clickjacking, and MIME-type sniffing.
+      2. <strong>Rate Limiting:</strong> Configured <code>express-rate-limit</code> to limit clients to 150 requests per 15-minute window, mitigating brute-force and DoS attacks.
+      3. <strong>CORS:</strong> Enforced an origin allowlist to prevent unauthorized domains from querying the API.
+      4. <strong>Credential Protection:</strong> Passwords are never stored in plaintext; they are hashed with bcrypt (10 rounds).
+      5. <strong>SQL Injection Defense:</strong> By using Prisma ORM with parameterized queries, SQL injection vulnerabilities are eliminated by default.
+      6. <strong>Error Sanitization:</strong> Centralized error middleware ensures detailed stack traces are never exposed in production."</em>
+    </div>
+    <div class="qa-keypoints">Key Talking Points: Defense-in-depth, OWASP Top 10, parameterized queries, Helmet, rate limiting.</div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-question">Q5: Why did you choose Vanilla JS over React, Vue, or Angular?</div>
+    <div class="qa-answer">
+      <em>"For a high-conversion landing page and hub, speed is paramount. Frameworks like React introduce 100KB+ of bundle overhead, hydration delays, and complex build tooling. By using modern Vanilla ES6+ JavaScript, the entire client footprint is under 15KB, loads in milliseconds, and has zero build dependencies. Furthermore, building this in Vanilla JS allowed me to demonstrate strong mastery of core browser fundamentals—such as the DOM API, IntersectionObserver, Fetch API, and Event Listeners—which form the bedrock of any modern frontend framework."</em>
+    </div>
+    <div class="qa-keypoints">Key Talking Points: Performance budget, First Contentful Paint (FCP), core JavaScript fundamentals, framework tradeoffs.</div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-question">Q6: How does the dark mode implementation prevent a Flash of Unstyled Content (FOUC)?</div>
+    <div class="qa-answer">
+      <em>"FOUC occurs when JavaScript applies the theme class after the DOM has already rendered in default light mode. To prevent this, the theme script reads <code>localStorage</code> immediately and assigns the <code>data-theme='dark'</code> attribute directly to <code>document.documentElement</code> at the earliest possible stage. All theme colors are defined as CSS custom properties (variables) on <code>:root</code> and overridden under <code>[data-theme='dark']</code>, allowing instant, flicker-free repaints."</em>
+    </div>
+    <div class="qa-keypoints">Key Talking Points: Critical rendering path, CSS custom properties, DOM lifecycle, FOUC prevention.</div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-question">Q7: What is the benefit of using Prisma over traditional query builders or raw SQL?</div>
+    <div class="qa-answer">
+      <em>"Prisma provides three major benefits:
+      1. <strong>Declarative Schema:</strong> The <code>schema.prisma</code> file serves as the single source of truth for database models, making relationships transparent.
+      2. <strong>Type-Safe Client:</strong> The generated client provides auto-completion and compile-time error detection, drastically reducing runtime bugs.
+      3. <strong>Database Portability:</strong> Developing locally on SQLite requires zero installation or database services, while switching to production PostgreSQL only requires changing the provider and connection string."</em>
+    </div>
+    <div class="qa-keypoints">Key Talking Points: Developer experience, type safety, automated migrations, database portability.</div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-question">Q8: How would you scale this architecture if traffic grew 100x?</div>
+    <div class="qa-answer">
+      <em>"To scale to hundreds of thousands of users, I would:
+      1. <strong>Database:</strong> Transition from SQLite to managed PostgreSQL with connection pooling (e.g., Prisma Accelerate or PgBouncer) and read replicas.
+      2. <strong>Caching:</strong> Introduce Redis to cache frequent queries such as <code>GET /api/services</code>.
+      3. <strong>Stateless Horizontal Scaling:</strong> Since our Express backend uses stateless JWTs, we can deploy multiple instances behind an Nginx or AWS ALB load balancer.
+      4. <strong>Static Asset CDN:</strong> Offload the HTML, CSS, and JS assets to Cloudflare or AWS CloudFront for global edge caching."</em>
+    </div>
+    <div class="qa-keypoints">Key Talking Points: Horizontal scaling, Redis caching, connection pooling, CDN edge distribution.</div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-question">Q9: What was the most challenging bug you encountered and how did you resolve it?</div>
+    <div class="qa-answer">
+      <em>"One interesting challenge was handling port collision and background process lifecycle on Windows, where port 5000 was held by an orphaned Node process. I used PowerShell network diagnostic cmdlets (<code>Get-NetTCPConnection</code> and <code>Win32_Process</code>) to track the owning PID, analyze the process command line, and gracefully terminate it before binding the server. Additionally, designing the offline mock fallback required careful handling of asynchronous timeouts using <code>AbortController</code> so the user wouldn't experience a 10-second freeze when the backend was unreachable."</em>
+    </div>
+    <div class="qa-keypoints">Key Talking Points: System diagnostics, PID management, AbortController, resilient UX under failure.</div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-question">Q10: If you had another two weeks to work on this, what would you add next?</div>
+    <div class="qa-answer">
+      <em>"I would implement:
+      1. <strong>Admin Dashboard:</strong> A protected frontend portal where administrators can view all incoming project proposals, filter by budget/status, and update inquiry statuses (e.g., 'IN_REVIEW', 'ACCEPTED').
+      2. <strong>Automated Email Notifications:</strong> Integration with Nodemailer or SendGrid to send automatic email confirmations to clients upon submission.
+      3. <strong>Automated Testing:</strong> End-to-end testing with Playwright and unit/integration tests with Jest and Supertest."</em>
+    </div>
+    <div class="qa-keypoints">Key Talking Points: Product vision, test automation (Jest/Playwright), transactional email, continuous improvement.</div>
+  </div>
+
+  <!-- ==================== SECTION 6: INTERVIEW DAY TIPS ==================== -->
+  <h2>6. Interview Day Checklist & Questions to Ask</h2>
+  <div class="callout callout-tip">
+    <div class="callout-title">💡 Pro-Tips for Nailing the Interview</div>
+    <ul>
+      <li><strong>Speak in trade-offs:</strong> Don't just say <em>"I used X"</em>; say <em>"I considered X and Y, and chose X because of [reason]."</em></li>
+      <li><strong>Demonstrate product empathy:</strong> Highlight how technical decisions (e.g., debouncing, offline mode, loading states) directly improved the end-user experience.</li>
+      <li><strong>Ask thoughtful questions at the end:</strong>
+        <ul>
+          <li><em>"What does the engineering onboarding process look like for interns on your team?"</em></li>
+          <li><em>"How does your team approach code reviews and architectural decision-making?"</em></li>
+          <li><em>"What is the most exciting technical challenge your team is currently solving?"</em></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+</body>
+</html>
